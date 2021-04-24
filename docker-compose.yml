@@ -1,0 +1,47 @@
+version: "3"
+
+services:
+  backend:
+    container_name: backend
+    build:
+      context: ./backend
+      target: development
+    volumes:
+      - ./backend:/usr/src/app
+    ports:
+      - 3000:3000
+    command: npm run ${DOCKER_COMPOSE_COMMAND}
+    env_file:
+      - .env
+    depends_on:
+      - pgmeta
+  frontend:
+    container_name: frontend
+    build:
+      context: ./frontend
+      target: development
+    volumes:
+      - ./frontend:/usr/src/app
+    ports:
+      - 8080:8080
+    command: npm run ${DOCKER_COMPOSE_COMMAND}
+    env_file:
+      - .env
+    depends_on:
+      - backend
+  pgmeta:
+    container_name: pgmeta
+    image: postgres:alpine
+    ports:
+      - "5432:5432"
+    restart: always
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+      - ./scripts:/docker-entrypoint-initdb.d
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_MULTIPLE_DATABASES: database
+
+volumes:
+  pg-data:

@@ -4,14 +4,14 @@
     "main": "index.js",
     "license": "MIT",
     "scripts": {
-      "postinstall": "npm install --prefix ./backend && npm install --prefix ./frontend ",
-      "start": "DOCKER_COMPOSE_COMMAND=start:dev COMPOSE_HTTP_TIMEOUT=200 docker-compose up",
-      "test:e2e": "DOCKER_COMPOSE_COMMAND=test:e2e COMPOSE_HTTP_TIMEOUT=200 docker-compose up",
-      "start:prod": "JWT_KEY=keytestes DOCKER_COMPOSE_COMMAND=start:prod COMPOSE_HTTP_TIMEOUT=200 docker-compose up",
-      "start:clean": "docker-compose up --build -V",
-      "clean": "docker rm -f $(docker ps -aq)",
-      "clean:all": "docker rm -f $(docker ps -aq) && docker volume prune -f",
-      "migration:generate": "DOCKER_COMPOSE_COMMAND=\"migration:generate $npm_config_migration\" COMPOSE_HTTP_TIMEOUT=200 docker-compose up pgmeta backend"
-    }
-  }
-  
+        "postinstall": "npm install --prefix ./backend && npm install --prefix ./frontend ",
+        "start": "DOCKER_COMPOSE_COMMAND=start:dev COMPOSE_HTTP_TIMEOUT=200 docker-compose up",
+        "test:e2e": "DOCKER_COMPOSE_COMMAND=test:e2e COMPOSE_HTTP_TIMEOUT=200 docker-compose up",
+        "start:prod": "JWT_KEY=keytestes DOCKER_COMPOSE_COMMAND=start:prod COMPOSE_HTTP_TIMEOUT=200 docker-compose up",
+        "start:clean": "docker-compose up --build -V",
+        "clean": "docker rm -f $(docker ps -aq)",
+        "clean:all": "docker rm -f $(docker ps -aq) && docker volume prune -f",
+        "migration:generate": "DOCKER_COMPOSE_COMMAND=\"migration:generate $npm_config_migration\" COMPOSE_HTTP_TIMEOUT=200 docker-compose up pgmeta backend"
+    },
+    "dependencies": {}
+}

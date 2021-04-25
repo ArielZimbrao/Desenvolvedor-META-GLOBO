@@ -7,7 +7,7 @@
       <div class="title-container">
         <span class="title">Globo Analytics</span>
       </div>
-      <div class="form-container">
+      <div class="form-container" v-on:keyup.enter="login">
         <Input 
           type="email"
           name="email" 
@@ -48,7 +48,25 @@ export default {
   },
   methods: {
     login() {
-      this.$authService.Login(this.email, this.password);
+      if (!this.email || this.email == '' || !this.password || this.password == '') {
+        this.$toast.open({
+          message: 'Email and password required!',
+          type: 'error'
+        })
+      } else {
+        this.$requestService.Login(this.email, this.password).then((result) => {
+          if (result) {
+            this.$router.push('/home')
+          } else {
+            this.email = '';
+            this.password = '';
+            this.$toast.open({
+              message: 'Email or password incorrect!',
+              type: 'error',
+            });
+          }
+        });
+      }
     }
   },
 }

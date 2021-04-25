@@ -4,7 +4,10 @@
       <div class="logo-container">
         <img class="logo" :src="logo" />
       </div>
-      <form class="form-container">
+      <div class="title-container">
+        <span class="title">Globo Analytics</span>
+      </div>
+      <div class="form-container">
         <Input 
           type="email"
           name="email" 
@@ -21,8 +24,8 @@
           v-model="password"
           :required="true"
         />
-        <button class="button-signin" type="submit" @click="login">Sign in</button> 
-      </form>
+        <button class="button-signin" @click="login">Sign in</button> 
+      </div>
     </div>
   </div>
 </template>
@@ -45,7 +48,7 @@ export default {
   },
   methods: {
     login() {
-      console.log(this.email)
+      this.$authService.Login(this.email, this.password);
     }
   },
 }

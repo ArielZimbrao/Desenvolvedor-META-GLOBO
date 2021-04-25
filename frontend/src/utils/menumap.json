@@ -1,0 +1,20 @@
+[
+    {
+        "label": "Home",
+        "href": "/home",
+        "icon": "fas fa-home",
+        "permission": ["ADMIN", "EMPLOYEE"]
+    },
+    {
+        "label": "Users",
+        "href": "/user",
+        "icon": "fas fa-users",
+        "permission": ["ADMIN"]
+    },
+    {
+        "label": "Sign out",
+        "href": "/login",
+        "icon": "fas fa-sign-out-alt",
+        "permission": ["ADMIN", "EMPLOYEE"]
+    }
+]

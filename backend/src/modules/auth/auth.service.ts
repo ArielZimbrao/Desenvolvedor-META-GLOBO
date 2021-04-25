@@ -8,6 +8,7 @@ import { AccessUnauthorizedError } from 'src/exception/exception';
 import { UserRepository } from 'src/repository/user.repository';
 import { cryptoUtils } from 'src/util/crypto.utils';
 import * as ms from 'ms';
+import { AccessLevelEnum } from 'src/enum/access-leval.enum';
 
 @Injectable()
 export class AuthService {
@@ -40,6 +41,8 @@ export class AuthService {
     loginResponseDTO.accessToken = this.generateAccessToken(user);
 
     loginResponseDTO.expiresIn = this.getExpiresTimeToken();
+
+    loginResponseDTO.role = AccessLevelEnum[user.role];
 
     return loginResponseDTO;
   }

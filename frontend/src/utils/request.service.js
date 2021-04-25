@@ -1,13 +1,11 @@
 import axios from 'axios'
 import crypto from 'crypto-js'
+import Store from "../views/store";
 
 export class RequestService {
-    email = '';
-    password = '';
-    accessToken = null;
 
-    RefreshToken() {
-        return this.Login(this.email, this.password);
+    IsAuthenticate() {
+        return Store.default.accessToken !== null;
     }
 
     Login(email, password) {
@@ -17,18 +15,44 @@ export class RequestService {
             password
         }).then((result) => {
             const data = result.data;
-            this.accessToken = data.accessToken;
-            this.email = email;
-            this.password = password;
 
+            Store.dispatch("SET_ACCESS_TOKEN", data.accessToken);
+            Store.dispatch("SET_USER_EMAIL", email);
+            Store.dispatch("SET_ROLE", data.role);
             setTimeout(() => {
-                this.accessToken = null;
+                Store.dispatch("LOGOFF");
             }, data.expiresIn);
             
             return true;
         }).catch((error) => {
-            console.error(error.data);
+            console.error(error);
             return false;
         }) 
+    }
+
+    GetCpuUsage() {
+        return axios.get('http://localhost:3000/stats/cpu', {
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem('access-token')}`,
+            }
+        }).then((result) => {
+            return result.data;
+        }).catch((error) => {
+            console.error(error);
+            return false;
+        })
+    }
+
+    GetMemoryUsage() {
+        return axios.get('http://localhost:3000/stats/memory', {
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem('access-token')}`,
+            }
+        }).then((result) => {
+            return result.data;
+        }).catch((error) => {
+            console.error(error);
+            return false;
+        })
     }
 }

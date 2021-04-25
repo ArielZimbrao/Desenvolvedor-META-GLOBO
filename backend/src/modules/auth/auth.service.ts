@@ -4,7 +4,7 @@ import { JwtService } from '@nestjs/jwt';
 import { CredentialDTO } from 'src/dto/credential.dto';
 import { TokenResponseDTO } from 'src/dto/token-response.dto';
 import { UserEntity } from 'src/entities/user.entity';
-import { AccessUnauthorized } from 'src/exception/exception';
+import { AccessUnauthorizedError } from 'src/exception/exception';
 import { UserRepository } from 'src/repository/user.repository';
 import { cryptoUtils } from 'src/util/crypto.utils';
 import * as ms from 'ms';
@@ -31,7 +31,7 @@ export class AuthService {
     ) {
       return this.generateTokens(user);
     } else {
-      throw new AccessUnauthorized()
+      throw new AccessUnauthorizedError()
     }
   }
 

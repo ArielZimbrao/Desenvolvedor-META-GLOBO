@@ -1,6 +1,6 @@
 import { HttpStatus, HttpException } from '@nestjs/common';
 
-export class AccessUnauthorized extends HttpException {
+export class AccessUnauthorizedError extends HttpException {
   constructor() {
     super(
       `Email or password incorrect`,
@@ -9,7 +9,7 @@ export class AccessUnauthorized extends HttpException {
   }
 }
 
-export class UserAlreadyExists extends HttpException {
+export class UserAlreadyExistsError extends HttpException {
   constructor() {
     super (
       'User already exists',
@@ -18,8 +18,17 @@ export class UserAlreadyExists extends HttpException {
   }
 }
 
+export class GetCpuStatsError extends HttpException {
+  constructor() {
+    super(
+      '',
+      HttpStatus.BAD_REQUEST
+    )
+  }
+}
 
-export class UserNotFound extends HttpException {
+
+export class UserNotFoundError extends HttpException {
   constructor() {
     super(
       'User not found',

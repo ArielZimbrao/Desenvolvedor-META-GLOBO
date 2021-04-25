@@ -4,7 +4,7 @@ import { CreateUserDTO } from 'src/dto/create-user.dto';
 import { EditUserDTO } from 'src/dto/edit-user.dto';
 import { UserEntity } from 'src/entities/user.entity';
 import { AccessLevelEnum } from 'src/enum/access-leval.enum';
-import { UserAlreadyExists, UserNotFound } from 'src/exception/exception';
+import { UserAlreadyExistsError, UserNotFoundError } from 'src/exception/exception';
 import { UserRepository } from 'src/repository/user.repository';
 
 @Injectable()
@@ -25,7 +25,7 @@ export class UserService {
     const userold = await this.userRepository.userAlreadyExists(new_user.email)
 
     if (userold) {
-      throw new UserAlreadyExists();
+      throw new UserAlreadyExistsError();
     }
 
     const user = new UserEntity();    
@@ -40,7 +40,7 @@ export class UserService {
     const user = await this.userRepository.findOneById(id);
 
     if (!user) {
-      throw new UserNotFound();
+      throw new UserNotFoundError();
     }
 
     user.remove();
@@ -50,7 +50,7 @@ export class UserService {
     const userold = await this.userRepository.findOneById(id);
 
     if (!userold) {
-      throw new UserNotFound();
+      throw new UserNotFoundError();
     }
 
     if (user.email) {

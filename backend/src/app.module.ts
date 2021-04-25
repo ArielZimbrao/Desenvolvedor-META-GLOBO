@@ -7,6 +7,8 @@ import { JwtAuthGuard } from './config/jwt.auth.guard';
 import { JWTStrategy } from './config/jwt.strategy';
 import { AuthController } from './modules/auth/auth.controller';
 import { AuthService } from './modules/auth/auth.service';
+import { StatsController } from './modules/stats/stats.controller';
+import { StatsService } from './modules/stats/stats.service';
 import { UserController } from './modules/user/user.controller';
 import { UserService } from './modules/user/user.service';
 
@@ -14,7 +16,7 @@ import { UserService } from './modules/user/user.service';
   imports: [
     ...config, 
   ],
-  controllers: [UserController, AuthController],
+  controllers: [UserController, AuthController, StatsController],
   providers: [
     ContextInterceptor,
     JwtAuthGuard,
@@ -22,6 +24,7 @@ import { UserService } from './modules/user/user.service';
     Context,
     UserService, 
     AuthService, 
+    StatsService,
     JWTStrategy,
     {
       provide: APP_INTERCEPTOR,

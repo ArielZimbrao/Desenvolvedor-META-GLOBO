@@ -1,3 +1,4 @@
+import { join } from 'path';
 import { ConnectionOptions } from 'typeorm';
 require('dotenv').config();
 
@@ -12,6 +13,10 @@ const connectionOptions: ConnectionOptions = {
   migrationsRun: false,
   synchronize: true,
   logging: false,
+  migrations: [join(__dirname, '/../migrations/*{.ts,.js}')],
+  cli: {
+    migrationsDir: 'src/migrations',
+  },
 };
 
 export = connectionOptions;

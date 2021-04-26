@@ -22,6 +22,9 @@ npm run start
 ```
 ###### _Docker_: É nescessario ter o docker instalado na máquina para executar o projeto
 
+## Documentação API
+Este projeto utiliza o swagger (OpenAPI) para documentar a API, depois do projeto iniciado essa documentação pode ser acessada em _http://localhost:3000/api_
+
 ## Sobre o autor:
 **Nome:** Ariel Zimbrão
 **Email:** aquilazimbrao@hotmail.com

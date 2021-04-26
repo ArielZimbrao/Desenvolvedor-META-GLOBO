@@ -13,12 +13,12 @@ export class StatsController {
     constructor(private readonly statsService: StatsService) {}
 
     @Get('cpu')
-    getCpuStats(): Promise<StatsDataDto[]> {
+    getCpuStats(): Promise<StatsDataDto> {
         return this.statsService.getCpuStats();
     }
 
     @Get('memory')
-    getMemoryStats(): Promise<StatsDataDto[]> {
+    getMemoryStats(): Promise<StatsDataDto> {
         return this.statsService.getMemoryStats();
     }
 

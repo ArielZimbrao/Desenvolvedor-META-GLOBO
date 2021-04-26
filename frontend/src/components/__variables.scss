@@ -1,5 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+$font-family: 'Roboto', sans-serif;
+
 $primary: #039dda;
 $secondary: #38ef7d;
 $white: #fff;
+$light-gray: #f1f1f1;
 $gray: #666666;
-$font-color: #383838
+$font-color: #383838;
+
+.page-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    min-height: 100vh;
+}

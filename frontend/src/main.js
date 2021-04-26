@@ -3,12 +3,21 @@ import App from './App.vue'
 import router from './router'
 import { RequestService } from './utils/request.service'
 import VueToast from 'vue-toast-notification';
-import 'vue-toast-notification/dist/theme-sugar.css';
-import Vuex from 'vuex'
+import * as store from './views/store'
+import VueApexCharts from 'vue-apexcharts'
 
-Vue.use(Vuex)
+
+import 'vue-toast-notification/dist/theme-sugar.css';
+import '@fortawesome/fontawesome-free/css/all.css'
+import '@fortawesome/fontawesome-free/js/all.js'
+
+Vue.use(store)
 Vue.use(VueToast);
+Vue.use(VueApexCharts)
+
+Vue.component('apexchart', VueApexCharts)
 Vue.config.productionTip = false
+Vue.prototype.$store = store;
 Vue.prototype.$requestService = new RequestService();
 
 new Vue({

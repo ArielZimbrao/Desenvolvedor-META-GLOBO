@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty } from 'class-validator';
+import { AccessLevelEnum } from 'src/enum/access-leval.enum';
 
 export class TokenResponseDTO {
     @ApiProperty({
@@ -13,4 +14,8 @@ export class TokenResponseDTO {
     @ApiProperty({ type: Number, description: 'Token expiration time in milliseconds'})
     @IsNotEmpty()
     expiresIn: Number;
+
+    @ApiProperty({ description: 'access level' })
+    @IsNotEmpty()
+    role: AccessLevelEnum;
 }

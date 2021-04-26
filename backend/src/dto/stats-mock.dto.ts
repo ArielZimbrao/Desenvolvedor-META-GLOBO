@@ -1,22 +1,24 @@
-import { IsArray, IsNotEmpty, IsString } from "class-validator";
+import { IsNotEmpty, IsString } from "class-validator";
 
 export class StatsDataDto {
 
-    constructor(label?: string, data?: string) {
-        if (label) {
-            this.label = label;
+    constructor(labels: string[], data: string[]) {
+        if (labels) {
+            this.labels = labels;
         }
 
         if (data) {
-            this.data = data;
+            this.data = data.map((dt) => {
+                return parseInt(dt, 10).toFixed(2)
+            });
         }
     }
 
     @IsNotEmpty()
     @IsString()
-    label: string
+    labels: string[]
 
     @IsNotEmpty()
     @IsString()
-    data: string
+    data: string[]
 }

@@ -1,0 +1,72 @@
+@import url('https://rsms.me/inter/inter.css');
+@import "../../components/__variables.scss";
+
+.user-container {
+    display: flex;
+    min-height: 100%;
+    width: 100%;
+    font-weight: bold;
+    font-size: 23px;
+    align-items: center;
+    flex-direction: column;
+    margin: 30px 30px;
+
+    .add-user-container {
+        display: flex;
+        width: 90%;
+        justify-content: flex-end;
+
+        .btn-create {
+            background-color: #f1f1f1;
+            box-shadow: 0px 2px 8px 2px #ccc;
+            border-radius: 5px;
+            padding: 15px;
+        }
+    }
+
+    .list-user-container {
+        width: 90%;
+        background-color: #f3f3f3;
+        box-shadow: 0px 2px 8px 2px #ccc;
+        border-radius: 5px;
+        margin-top: 30px;
+        height: 740px;
+        overflow: auto;
+
+        .user {
+            display: flex;
+            padding: 15px;
+            box-sizing: border-box;
+            transition: 0.4s all;
+            color: #6d6d6d;
+            background: #fff;
+            margin: 10px 10px 0;
+            box-shadow: 0px 2px 5px #ccc;
+
+            &:hover {
+                background-color: #eaeaea;
+            }
+
+            .info {
+                display: flex;
+                flex: 1;
+                font-size: 20px;
+
+                .info-email {
+
+                    &::after{
+                        content: "/";
+                        font-size: 20px;
+                        padding: 10px;
+                    }
+                }
+            }
+
+            .actions {
+                display: flex;
+                width: 60px;
+                justify-content: space-between;
+            }
+        }
+    }
+}

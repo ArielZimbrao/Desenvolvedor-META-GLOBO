@@ -64,17 +64,24 @@ export default {
       this.$router.push('/login');
     }
 
-    this.$requestService.GetCpuUsage().then((response) => {
-      this.updateChartCPU(response.labels, response.data);
-    });
-    this.$requestService.GetMemoryUsage().then((response) => {
-      this.updateChartMemory(response.labels, response.data);
-    });
-    this.$requestService.GetClusterStatus().then((response) => {
-      this.updateStatusCluter(response);
-    });
+    this.getInfo() 
+    setInterval(() => {
+      console.log('Update data charts')
+      this.getInfo();
+    }, 600000)
   },
   methods: {
+    getInfo() {
+      this.$requestService.GetCpuUsage().then((response) => {
+        this.updateChartCPU(response.labels, response.data);
+      });
+      this.$requestService.GetMemoryUsage().then((response) => {
+        this.updateChartMemory(response.labels, response.data);
+      });
+      this.$requestService.GetClusterStatus().then((response) => {
+        this.updateStatusCluter(response);
+      });
+    },
     updateStatusCluter(status) {
       this.status = StatusClusterEnum[status];
       this.updateStatusDate = `last update: ${moment().format('MM/DD/YYYY HH:mm')}hrs`

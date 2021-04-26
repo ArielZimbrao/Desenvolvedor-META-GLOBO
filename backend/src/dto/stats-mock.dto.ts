@@ -1,4 +1,4 @@
-import { IsArray, IsNotEmpty, IsString } from "class-validator";
+import { IsNotEmpty, IsString } from "class-validator";
 
 export class StatsDataDto {
 
@@ -9,7 +9,7 @@ export class StatsDataDto {
 
         if (data) {
             this.data = data.map((dt) => {
-                return `${dt.toString()}%`
+                return parseInt(dt, 10).toFixed(2)
             });
         }
     }

@@ -1,6 +1,6 @@
 const AccessLevelEnum = {
-    ADMIN = 'ADMIN',
-    EMPLOYEE = 'EMPLOYEE',
+    ADMIN: 'ADMIN',
+    EMPLOYEE: 'EMPLOYEE',
 }
 
 Object.freeze(AccessLevelEnum);

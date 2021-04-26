@@ -5,7 +5,27 @@ import Store from "../views/store";
 export class RequestService {
 
     IsAuthenticate() {
-        return Store.default.accessToken !== null;
+        let accessToken = Store.state.accessToken;
+
+        if (!accessToken) {
+            let userInfo = localStorage.getItem('user-info');
+            userInfo = JSON.parse(userInfo);
+
+            if (!userInfo) {
+                return false;
+            }
+
+            Store.dispatch("SET_ACCESS_TOKEN", userInfo.accessToken);
+            Store.dispatch("SET_USER_EMAIL", userInfo.email);
+            Store.dispatch("SET_ROLE", userInfo.role);
+            accessToken = userInfo.accessToken;
+        }
+        return accessToken !== null;
+    }
+
+    Logoff() {
+        Store.dispatch("LOGOFF");
+        localStorage.removeItem('user-info');
     }
 
     Login(email, password) {
@@ -19,13 +39,18 @@ export class RequestService {
             Store.dispatch("SET_ACCESS_TOKEN", data.accessToken);
             Store.dispatch("SET_USER_EMAIL", email);
             Store.dispatch("SET_ROLE", data.role);
+            localStorage.setItem('user-info', JSON.stringify({
+                accessToken: data.accessToken,
+                email: email,
+                role: data.role,
+            }));
             setTimeout(() => {
-                Store.dispatch("LOGOFF");
+                this.Logoff();
             }, data.expiresIn);
             
             return true;
         }).catch((error) => {
-            console.error(error);
+            console.log(error);
             return false;
         }) 
     }
@@ -33,12 +58,12 @@ export class RequestService {
     GetCpuUsage() {
         return axios.get('http://localhost:3000/stats/cpu', {
             headers: {
-                "Authorization": `Bearer ${localStorage.getItem('access-token')}`,
+                "Authorization": `Bearer ${Store.state.accessToken}`,
             }
         }).then((result) => {
             return result.data;
         }).catch((error) => {
-            console.error(error);
+            console.log(error);
             return false;
         })
     }
@@ -46,12 +71,38 @@ export class RequestService {
     GetMemoryUsage() {
         return axios.get('http://localhost:3000/stats/memory', {
             headers: {
-                "Authorization": `Bearer ${localStorage.getItem('access-token')}`,
+                "Authorization": `Bearer ${Store.state.accessToken}`,
             }
         }).then((result) => {
             return result.data;
         }).catch((error) => {
-            console.error(error);
+            console.log(error);
+            return false;
+        })
+    }
+
+    GetClusterStatus() {
+        return axios.get('http://localhost:3000/stats/cluster/status', {
+            headers: {
+                "Authorization": `Bearer ${Store.state.accessToken}`,
+            }
+        }).then((result) => {
+            return result.data;
+        }).catch((error) => {
+            console.log(error);
+            return false;
+        })
+    }
+
+    GetAllUser() {
+        return axios.get('http://localhost:3000/user', {
+            headers: {
+                "Authorization": `Bearer ${Store.state.accessToken}`,
+            }
+        }).then((result) => {
+            return result.data;
+        }).catch((error) => {
+            console.log(error);
             return false;
         })
     }

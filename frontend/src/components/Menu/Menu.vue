@@ -9,8 +9,8 @@
             </div>
         </div>
         <div class="sidenav">
-          <div class="item-menu" v-for="item of menuItens" v-bind:key="item">
-            <div :class="checkPageActive(item.href)" @click="nextPage(item.href)">
+          <div class="item-menu" v-for="item of menuItens" :key="item" >
+            <div v-if="checkPermission(item.permission)" :class="checkPageActive(item.href)" @click="nextPage(item.href)">
               <div class="icon-menu">
                 <i :class="item.icon"/>
               </div>
@@ -24,6 +24,7 @@
 <script>
 import Logo from '@/assets/logo.png'
 import MenuMap from '@/utils/menumap.json'
+import Store from "@/views/store";
 
 export default {
   name: 'Menu',
@@ -37,10 +38,13 @@ export default {
   },
   computed: {
     getEmailUser() {
-      return this.$store.default.state.email;
+      return Store.state.email;
     }
   },
   methods: {
+    checkPermission(permissions) {
+      return permissions.includes(Store.state.role);
+    },
     checkPageActive(href) {
       if (this.$route.path === href) {
         return 'item active'
@@ -49,7 +53,7 @@ export default {
     },
     nextPage(href) {
       if (href === '/login') {
-        this.$store.dispatch("LOGOFF");
+        this.$requestService.Logoff();
       }
 
       this.$router.push(href)

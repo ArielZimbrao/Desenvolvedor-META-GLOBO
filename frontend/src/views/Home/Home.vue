@@ -76,8 +76,7 @@ export default {
   },
   methods: {
     updateStatusCluter(status) {
-      console.log(status)
-      this.status = StatusClusterEnum["FAILED"];
+      this.status = StatusClusterEnum[status];
       this.updateStatusDate = `last update: ${moment().format('MM/DD/YYYY HH:mm')}hrs`
     },
     updateChartCPU(categories, series) {

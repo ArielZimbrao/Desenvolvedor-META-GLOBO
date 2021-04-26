@@ -3,7 +3,7 @@
 </template>
 
 <style lang="scss">
-@import './components/__variables.scss';
+@import './components/common.scss';
 html, body {
     width: 100%;
     min-height: 100vh;

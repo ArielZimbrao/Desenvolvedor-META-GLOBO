@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Context } from 'src/config/context';
+import { cryptoUtils } from 'src/util/crypto.utils';
 import { CreateUserDTO } from 'src/dto/create-user.dto';
 import { EditUserDTO } from 'src/dto/edit-user.dto';
 import { UserEntity } from 'src/entities/user.entity';
@@ -31,7 +31,7 @@ export class UserService {
     const user = new UserEntity();    
     user.email = new_user.email;
     user.role = AccessLevelEnum[new_user.role];
-    user.password = new_user.password;
+    user.password = cryptoUtils.decryptoPassword(new_user.password);
 
     return user.save();
   }
@@ -58,7 +58,7 @@ export class UserService {
     }
 
     if(user.password) {
-      userold.password = user.password;
+      userold.password = cryptoUtils.decryptoPassword(user.password);
     }
 
     if(user.role) {

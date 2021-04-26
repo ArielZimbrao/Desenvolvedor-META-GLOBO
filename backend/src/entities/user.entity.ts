@@ -2,7 +2,7 @@ import { AccessLevelEnum } from "src/enum/access-leval.enum";
 import { cryptoUtils } from "src/util/crypto.utils";
 import { AfterLoad, BaseEntity, BeforeInsert, BeforeUpdate, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity()
+@Entity('user')
 export class UserEntity extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;

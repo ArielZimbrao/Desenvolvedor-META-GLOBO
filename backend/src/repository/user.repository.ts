@@ -23,7 +23,6 @@ export class UserRepository extends Repository<UserEntity> {
 
 
     async userAlreadyExists(email: string) {
-        console.log(email)
         return this.findOne({
             where: {
                 email: email

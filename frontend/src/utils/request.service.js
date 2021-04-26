@@ -1,5 +1,5 @@
 import axios from 'axios'
-import crypto from 'crypto-js'
+import { CryptoHandler } from './crypto-handler.js'
 import Store from "../views/store";
 
 export class RequestService {
@@ -24,12 +24,13 @@ export class RequestService {
     }
 
     Logoff() {
+        window.location.href = "/login";
         Store.dispatch("LOGOFF");
         localStorage.removeItem('user-info');
     }
 
     Login(email, password) {
-        password = crypto.AES.encrypt(password, 'secretkey').toString();
+        password = CryptoHandler.encrypt(password);
         return axios.post('http://localhost:3000/auth/signin', {
             email,
             password
@@ -105,5 +106,44 @@ export class RequestService {
             console.log(error);
             return false;
         })
+    }
+
+    SaveUser(user) {
+        if (user.id) {
+            return axios.put(`http://localhost:3000/user/${user.id}`, user,{
+                headers: {
+                    "Authorization": `Bearer ${Store.state.accessToken}`,
+                }
+            }).then((result) => {
+                return result.data;
+            }).catch((error) => {
+                console.log(error);
+                return false;
+            })
+        } else {
+            return axios.post('http://localhost:3000/user', user, {
+                headers: {
+                    "Authorization": `Bearer ${Store.state.accessToken}`,
+                }
+            }).then((result) => {
+                return result.data;
+            }).catch((error) => {
+                console.log(error);
+                return false;
+            })           
+        }
+    }
+
+    RemoveUser(id) {
+        return axios.delete(`http://localhost:3000/user/${id}`, {
+            headers: {
+                "Authorization": `Bearer ${Store.state.accessToken}`,
+            }
+        }).then((result) => {
+            return result.data;
+        }).catch((error) => {
+            console.log(error);
+            return false;
+        })  
     }
 }

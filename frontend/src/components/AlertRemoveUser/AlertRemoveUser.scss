@@ -1,7 +1,7 @@
 @import '../common.scss';
 
 
-.modal-user-container {
+.modal-remove-user-container {
     position: absolute;
     top: 0;
     left: 0;
@@ -15,15 +15,12 @@
     .modal {
         display: flex;
         flex-direction: column;
-        height: 400px;
-        width: 650px;
+        height: 160px;
+        width: 410px;
         border-radius: 10px;
         padding: 30px;
         background-color: white;
 
-        .input {
-            width: 100%;
-        }
 
         .title-modal {
             margin: 15px 0px;
@@ -32,24 +29,9 @@
             text-align: center;
         }
 
-        .password-container {
-            display: flex;
-            flex-direction: row;
+        .text-alert-remove {
             width: 100%;
-
-            .input {
-                width: 100%;
-            }
-        }
-
-        .role-container {
-            display: flex;
-            flex-direction: column;
-            margin: 15px 5px;
-            .role-select {
-                flex: 1;
-                margin: 5px 0px;
-            }
+            text-align: center;
         }
 
         .actions-container {

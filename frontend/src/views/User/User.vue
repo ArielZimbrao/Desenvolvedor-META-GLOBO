@@ -8,7 +8,7 @@
         </div>
       </div>
       <div class="list-user-container">
-        <div class="user" v-for="user of users" v-bind:key="user">
+        <div class="user" v-for="user of users" v-bind:key="user.id">
           <div class="info">
             <span class="info-email">{{user.email}}</span>
             <span class="info-role">{{user.role}}</span>

@@ -9,7 +9,7 @@
             </div>
         </div>
         <div class="sidenav">
-          <div class="item-menu" v-for="item of menuItens" :key="item" >
+          <div class="item-menu" v-for="item of menuItens" v-bind:key="item.label" >
             <div v-if="checkPermission(item.permission)" :class="checkPageActive(item.href)" @click="nextPage(item.href)">
               <div class="icon-menu">
                 <i :class="item.icon"/>
